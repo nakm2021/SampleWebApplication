@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using SampleWebApplication_DataAccess.Data;
 using SampleWebApplication_DataAccess.Repository;
 using SampleWebApplication_DataAccess.Repository.IRepository;
@@ -9,34 +8,35 @@ using SampleWebApplication_Web.Controllers;
 
 namespace SampleWebApplication_Tests
 {
-    public class OrderControllerTests
+    public class OrderItemControllerTests
     {
         private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly OrderController _controller;
+        private readonly OrderItemController _controller;
 
-        public OrderControllerTests()
+        public OrderItemControllerTests()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "Nakm")
                 .Options;
             _context = new ApplicationDbContext(options);
             _unitOfWork = new UnitOfWork(_context);
-            _controller = new OrderController(_unitOfWork);
+            _controller = new OrderItemController(_unitOfWork);
             dummyDate();
         }
 
         private void dummyDate()
         {
-            _context.Orders.RemoveRange(_context.Orders);
+            _context.OrderItems.RemoveRange(_context.OrderItems);
             //_context.ChangeTracker.Clear();
             for (int i = 1; i <= 1000; i++)
             {
-                _context.Orders.Add(new Order
+                _context.OrderItems.Add(new OrderItem
                 {
                     OrderId = i,
-                    CustomerId = i,
-                    OrderDate = new DateTime(2025, 3, 1)
+                    ProductId = i,
+                    Quantity = 1,
+                    Price = i * 777
                 });
             }
             _context.SaveChanges();
@@ -52,18 +52,19 @@ namespace SampleWebApplication_Tests
         [Fact]
         public void Create_WithValidOrder_ReturnsRedirectToActionResult()
         {
-            var order = new Order
+            var order = new OrderItem
             {
                 OrderId = 100,
-                CustomerId = 100,
-                OrderDate = new DateTime(2025, 3, 1)
+                ProductId = 100,
+                Quantity = 1,
+                Price = 100 * 777
             };
 
             // 既存のエンティティがある場合、削除する
-            var existingOrder = _context.Orders.SingleOrDefault(o => o.OrderId == order.OrderId);
+            var existingOrder = _context.OrderItems.SingleOrDefault(o => o.OrderId == order.OrderId);
             if (existingOrder != null)
             {
-                _context.Orders.Remove(existingOrder);
+                _context.OrderItems.Remove(existingOrder);
                 _context.SaveChanges();
             }
 
@@ -72,7 +73,6 @@ namespace SampleWebApplication_Tests
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal(nameof(_controller.Index), redirectToActionResult.ActionName);
         }
-
 
         [Fact]
         public void Edit_InvalidId_ReturnsNotFoundResult()
@@ -88,18 +88,18 @@ namespace SampleWebApplication_Tests
 
             // Arrange
             int id = 5;
-            var order = new Order
+            var orderItem = new OrderItem
             {
                 OrderId = id,
-                CustomerId = 5,
-                OrderDate = new DateTime(2025, 3, 1)
+                ProductId = 5,
+                Quantity = 1,
+                Price = 5 * 777
             };
-
             var result = _controller.Edit(id);
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<Order>(viewResult.ViewData.Model);
-            Assert.Equal(order, model);
+            var model = Assert.IsAssignableFrom<OrderItem>(viewResult.ViewData.Model);
+            Assert.Equal(orderItem, model);
         }
     }
 }
