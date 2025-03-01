@@ -1,0 +1,29 @@
+﻿@model Order
+
+<div class="container">
+    <h1 class="text-info">Edit Order</h1>
+    <form method="post">
+        <div class="">
+            <label asp-for="OrderId">Order Id</label>
+            <input asp-for="OrderId" class="form-control" />
+        </div>
+        <div class="">
+            <label asp-for="CustomerId">Customer Id</label>
+            <input asp-for="CustomerId" class="form-control" />
+        </div>
+        <div class="">
+            <label asp-for="OrderDate">Order Date</label>
+            <input asp-for="OrderDate" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-outline-primary form-control">Update</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

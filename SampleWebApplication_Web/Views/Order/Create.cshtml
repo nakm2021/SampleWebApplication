@@ -1,0 +1,31 @@
+﻿@model Order
+<div class="container">
+    <h1 class="text-info">Create Order</h1>
+    <form method="post" class="row">
+        <div class="p-3 col-12">
+            <label asp-for=OrderId></label>
+            <input asp-for=OrderId />
+            <span asp-validation-for="OrderId" class="text-danger"></span>
+        </div>
+        <div class="p-3 col-12">
+            <label asp-for=CustomerId></label>
+            <input asp-for=CustomerId />
+            <span asp-validation-for="CustomerId" class="text-danger"></span>
+        </div>
+        <div class="p-3 col-12">
+            <label asp-for=OrderDate></label>
+            <input asp-for=OrderDate />
+            <span asp-validation-for="OrderDate" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-outline-primary form-control">Create</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

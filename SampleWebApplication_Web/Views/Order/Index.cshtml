@@ -1,0 +1,30 @@
+﻿@model List<Order>
+<div class="container">
+    <h1 class="text-info">Order List</h1>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Customer Id</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.CustomerId</td>
+                    <td>@item.OrderDate</td>
+                    <td>
+                        <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-primary mx-2">
+                            Edit
+                        </a>
+                        <a asp-controller="Order" asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger mx-2">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+    </table>
+</div>
