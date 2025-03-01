@@ -1,0 +1,32 @@
+﻿@model List<OrderItem>
+<div class="container">
+    <h1 class="text-info">OrderItem List</h1>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Product Id</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.ProductId</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a asp-controller="OrderItem" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-primary mx-2">
+                            Edit
+                        </a>
+                        <a asp-controller="OrderItem" asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger mx-2">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+    </table>
+</div>

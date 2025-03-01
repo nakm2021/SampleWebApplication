@@ -4,7 +4,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome Sample Web Application</h1>
-    <div>
+    <div class="m-2">
         <a asp-controller="Order" asp-action="Index" class="btn btn-primary">
            Order List
         </a>
@@ -12,4 +12,11 @@
             Create Order
         </a>
     </div>
+    <div class="m-2">
+        <a asp-controller="OrderItem" asp-action="Index" class="btn btn-success">
+            OrderItem List
+        </a>
+        <a asp-controller="OrderItem" asp-action="Create" class="btn btn-success">
+            Create OrderItem
+        </a>
 </div>

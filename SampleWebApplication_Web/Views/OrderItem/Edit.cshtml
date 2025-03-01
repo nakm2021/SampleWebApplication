@@ -1,0 +1,33 @@
+﻿@model OrderItem
+
+<div class="container">
+    <h1 class="text-info">Edit OrderItem</h1>
+    <form method="post">
+        <div class="">
+            <label asp-for="OrderId">Order Id</label>
+            <input asp-for="OrderId" class="form-control" />
+        </div>
+        <div class="">
+            <label asp-for="ProductId">Product Id</label>
+            <input asp-for="ProductId" class="form-control" />
+        </div>
+        <div class="">
+            <label asp-for="Quantity">Quantity</label>
+            <input asp-for="Quantity" class="form-control" />
+        </div>
+        <div class="">
+            <label asp-for="Price">Price</label>
+            <input asp-for="Price" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-outline-primary form-control">Update</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="OrderItem" asp-action="Index" class="btn btn-outline-primary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
