@@ -21,7 +21,7 @@ namespace SampleWebApplication_Tests
         {
             // テスト用の仮想のデータベースコンテキストを作成
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "Nakm")
+                .UseInMemoryDatabase(databaseName: "Nakm_OrderItemControllerTests")
                 .Options;
             _context = new ApplicationDbContext(options);
             _unitOfWork = new UnitOfWork(_context);
