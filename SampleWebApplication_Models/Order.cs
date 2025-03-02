@@ -9,6 +9,11 @@ namespace SampleWebApplication_Models
         public int CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
 
+        /// <summary>
+        /// テスト用にオーバーライド
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -19,6 +24,10 @@ namespace SampleWebApplication_Models
             return OrderId == order.OrderId && CustomerId == order.CustomerId && OrderDate == order.OrderDate;
         }
 
+        /// <summary>
+        /// テスト用にオーバーライド
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(OrderId, CustomerId, OrderDate);
