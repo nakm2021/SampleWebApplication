@@ -9,6 +9,9 @@ using SampleWebApplication_Web.Controllers;
 
 namespace SampleWebApplication_Tests
 {
+    /// <summary>
+    /// OrderControllerのテスト
+    /// </summary>
     public class OrderControllerTests
     {
         private readonly ApplicationDbContext _context;
@@ -17,17 +20,23 @@ namespace SampleWebApplication_Tests
 
         public OrderControllerTests()
         {
+            // テスト用の仮想のデータベースコンテキストを作成
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "Nakm")
                 .Options;
             _context = new ApplicationDbContext(options);
             _unitOfWork = new UnitOfWork(_context);
             _controller = new OrderController(_unitOfWork);
-            dummyDate();
+            dummyData();
         }
 
-        private void dummyDate()
+        /// <summary>
+        /// ダミーデータを作成
+        /// </summary>
+        private void dummyData()
         {
+            //テストを実行するたびに Ordersを初期化
+            //テーブル内の既存のデータをすべて削除してから、新しいダミーデータを挿入する
             _context.Orders.RemoveRange(_context.Orders);
             //_context.ChangeTracker.Clear();
             for (int i = 1; i <= 1000; i++)
@@ -42,6 +51,9 @@ namespace SampleWebApplication_Tests
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Createメソッドのテスト
+        /// </summary>
         [Fact]
         public void Create_ReturnsViewResult()
         {
@@ -49,6 +61,9 @@ namespace SampleWebApplication_Tests
             Assert.IsType<ViewResult>(result);
         }
 
+        /// <summary>
+        /// Createメソッドのテスト
+        /// </summary>
         [Fact]
         public void Create_WithValidOrder_ReturnsRedirectToActionResult()
         {
@@ -73,7 +88,9 @@ namespace SampleWebApplication_Tests
             Assert.Equal(nameof(_controller.Index), redirectToActionResult.ActionName);
         }
 
-
+        /// <summary>
+        /// Editメソッドのテスト
+        /// </summary>
         [Fact]
         public void Edit_InvalidId_ReturnsNotFoundResult()
         {
@@ -82,6 +99,9 @@ namespace SampleWebApplication_Tests
             Assert.IsType<NotFoundResult>(result);
         }
 
+        /// <summary>
+        /// Editメソッドのテスト
+        /// </summary>
         [Fact]
         public void Edit_ValidId_ReturnsViewResultWithOrder()
         {

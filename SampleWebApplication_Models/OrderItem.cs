@@ -11,6 +11,11 @@ namespace SampleWebApplication_Models
         public int Quantity { get; set; }
         public int Price { get; set; }
 
+        /// <summary>
+        /// テスト用にオーバーライド
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -21,6 +26,10 @@ namespace SampleWebApplication_Models
             return OrderId == orderItem.OrderId && ProductId == orderItem.ProductId && Quantity == orderItem.Quantity && Price == orderItem.Price;
         }
 
+        /// <summary>
+        /// テスト用にオーバーライド
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(OrderId, ProductId, Quantity, Price);
